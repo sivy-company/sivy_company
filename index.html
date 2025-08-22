@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivy Company - Soluções em IA e Otimização para Negócios Locais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variáveis CSS para consistência */
+        :root {
+            --primary-gradient: linear-gradient(90deg, #A9C7E6 0%, #6B8DAF 100%);
+            --primary-dark: #0C1626;
+            --primary-light: #A9C7E6;
+            --secondary-dark: #1a202c;
+            --accent-color: #6B8DAF;
+        }
+
+        body {
+            background-color: var(--primary-dark);
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 9999;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--primary-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Efeito de digitação */
+        .typewriter h1 {
+            overflow: hidden;
+            border-right: 0.15em solid var(--accent-color);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color); }
+        }
+
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-bg {
+            background: var(--primary-gradient);
+        }
+
+        /* Elementos flutuantes */
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Efeito de glitch no hover */
+        .glitch-effect {
+            position: relative;
+        }
+
+        .glitch-effect:hover {
+            text-shadow: 2px 0 var(--primary-light), -2px 0 #ff00ff;
+            animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Cards com efeito holográfico */
+        .holographic-card {
+            background: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(107, 141, 175, 0.3);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .holographic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(169, 199, 230, 0.2);
+        }
+
+        .holographic-card:hover::before {
+            opacity: 0.1;
+        }
+
+        /* Animações de entrada ao rolar */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Partículas de fundo */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Botões com efeito de preenchimento */
+        .fill-button {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .fill-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .fill-button:hover::before {
+            width: 100%;
+        }
+
+        /* Toggle de modo claro/escuro */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .light-mode {
+            background-color: #f8fafc;
+            color: #1a202c;
+        }
+
+        .light-mode .holographic-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(107, 141, 175, 0.2);
+        }
+
+        .light-mode .gradient-text {
+            background: linear-gradient(90deg, #0C1626 0%, #6B8DAF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Chatbot melhorado */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-height: 500px;
+            background: var(--secondary-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--accent-color);
+        }
+
+        .chatbot-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-body {
+            padding: 15px;
+            flex-grow: 1;
+            overflow-y: auto;
+            background: var(--secondary-dark);
+        }
+
+        .chatbot-message {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            animation: message-appear 0.3s ease;
+        }
+
+        @keyframes message-appear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background: #2d3748;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            color: #e2e8f0;
+        }
+
+        .user-message {
+            background: var(--primary-gradient);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            padding: 15px;
+            border-top: 1px solid #4a5568;
+            display: flex;
+            background: var(--secondary-dark);
+        }
+
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #4a5568;
+            border-radius: 30px;
+            outline: none;
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+
+        .chatbot-input button {
+            margin-left: 10px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.05);
+        }
+
+        /* FAQ melhorado */
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-color);
+        }
+
+        .faq-question {
+            padding: 15px;
+            background-color: var(--secondary-dark);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #2d3748;
+        }
+
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background-color: #2d3748;
+            color: #e2e8f0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 15px;
+            max-height: 500px;
+        }
+
+        /* Processo com animação */
+        .process-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .process-step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .process-step:before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--accent-color);
+        }
+
+        .process-step:last-child:before {
+            height: 50%;
+        }
+
+        .process-step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .process-step-number {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* Melhorias no formulário */
+        .form-input {
+            transition: all 0.3s ease;
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(107, 141, 175, 0.3);
+        }
+
+        /* Animação de pulsação para CTA */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#0C1626] text-gray-200 font-sans">
+    <!-- Barra de progresso -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Botão de toggle de tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Partículas de fundo -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="container mx-auto px-4 py-6 flex justify-between items-center fade-in">
+        <div class="flex items-center">
+            <img src="img/logo-removebg-preview.png" alt="Sivy Company" class="float-element" style="width: 150px; height: auto; display: block; object-fit: contain; object-position: center;">
+        </div>
+        <nav class="hidden md:flex space-x-8">
+            <a href="#servicos" class="hover:text-[#A9C7E6] transition glitch-effect">Serviços</a>
+            <a href="#processo" class="hover:text-[#A9C7E6] transition glitch-effect">Processo</a>
+            <a href="#beneficios" class="hover:text-[#A9C7E6] transition glitch-effect">Benefícios</a>
+            <a href="#faq" class="hover:text-[#A9C7E6] transition glitch-effect">FAQ</a>
+        </nav>
+        <a href="#contato" class="px-6 py-2 rounded-full gradient-bg text-white font-medium hover:opacity-90 transition fill-button">Fale Conosco</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-12 md:mb-0 fade-in">
+            <div class="typewriter">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Impulsione seu negócio local</span> com IA e otimização do Google Meu Negócio
+                </h1>
+            </div>
+            <p class="text-xl text-gray-300 mb-8">
+                A Sivy Company utiliza inteligência artificial para transformar sua presença online e atrair mais clientes para seu estabelecimento.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#contato" class="px-8 py-4 rounded-full gradient-bg text-white font-bold text-center hover:opacity-90 transition fill-button pulse-animation">
+                    Quero mais clientes!
+                </a>
+                <a href="#servicos" class="px-8 py-4 rounded-full border-2 border-[#6B8DAF] text-[#6B8DAF] font-bold text-center hover:bg-[#6B8DAF] hover:text-white transition fill-button">
+                    Conheça nossos serviços
+                </a>
+            </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center fade-in">
+            <div class="relative w-full max-w-md">
+                <div class="absolute -top-8 -left-8 w-32 h-32 rounded-full gradient-bg opacity-30 float-element" style="animation-delay: 1s;"></div>
+                <div class="absolute -bottom-8 -right-8 w-32 h-32 rounded-full gradient-bg opacity-30 float-element" style="animation-delay: 2s;"></div>
+                <div class="relative holographic-card p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center mr-3 float-element" style="animation-delay: 0.5s;">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold gradient-text">Resultados Comprovados</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-[#6B8DAF] mt-1 mr-3"></i>
+                            <p>Até 3x mais visualizações no seu perfil</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-[#6B8DAF] mt-1 mr-3"></i>
+                            <p>Melhor posicionamento nos resultados de busca</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-[#6B8DAF] mt-1 mr-3"></i>
+                            <p>Clientes encontrando você mais facilmente</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-[#6B8DAF] mt-1 mr-3"></i>
+                            <p>Gestão automatizada de avaliações e reputação</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="py-16 bg-[#0C1626]/80">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Nossas Soluções Especializadas</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Combinamos tecnologia de ponta com estratégias comprovadas para alavancar seu negócio local
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="holographic-card p-8 fade-in">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6 float-element">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Soluções em IA para Negócios Locais</h3>
+                    <p class="text-gray-300 mb-6">
+                        Desenvolvemos sistemas inteligentes que automatizam processos, analisam dados de clientes e otimizam suas operações para maximizar resultados.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Chatbots personalizados para atendimento 24/7</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Análise preditiva de demanda e comportamento</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Sistemas de recomendação inteligente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Automação de marketing e relacionamento</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="holographic-card p-8 fade-in">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6 float-element" style="animation-delay: 0.5s;">
+                        <i class="fab fa-google text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Otimização de Google Meu Negócio</h3>
+                    <p class="text-gray-300 mb-6">
+                        Transformamos seu perfil no Google em uma poderosa ferramenta de captação de clientes, aumentando sua visibilidade e conversões.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Otimização completa do perfil (fotos, descrição, categorias)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Gestão estratégica de avaliações e respostas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Publicações regulares e posts otimizados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#6B8DAF] mt-1 mr-3"></i>
+                            <span>Monitoramento de desempenho e ajustes contínuos</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo -->
+    <section id="processo" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Como Funciona Nosso Processo</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Um método simples e eficiente para transformar sua presença online
+                </p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <h3 class="text-2xl font-bold mb-3 text-[#A9C7E6]">Análise e Diagnóstico</h3>
+                    <p class="text-gray-300">
+                        Realizamos uma avaliação completa do seu negócio e presença online para identificar oportunidades de melhoria e criar uma estratégia personalizada.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <h3 class="text-2xl font-bold mb-3 text-[#A9C7E6]">Implementação</h3>
+                    <p class="text-gray-300">
+                        Nossa equipe especializada executa todas as otimizações necessárias no seu Google Meu Negócio e implementa as soluções de IA adequadas para seu caso.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <h3 class="text-2xl font-bold mb-3 text-[#A9C7E6]">Monitoramento</h3>
+                    <p class="text-gray-300">
+                        Acompanhamos continuamente os resultados, fazendo ajustes estratégicos para garantir o máximo desempenho e retorno sobre seu investimento.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">4</div>
+                    <h3 class="text-2xl font-bold mb-3 text-[#A9C7E6]">Relatórios e Evolução</h3>
+                    <p class="text-gray-300">
+                        Fornecemos relatórios periódicos com métricas de desempenho e propostas de evolução contínua para manter seu negócio sempre à frente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section id="beneficios" class="py-16 bg-[#0C1626]/80">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Benefícios para Seu Negócio</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    O que você ganha ao trabalhar conosco
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element">
+                        <i class="fas fa-eye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mais Visibilidade</h3>
+                    <p class="text-gray-300">
+                        Apareça nas primeiras posições quando clientes buscarem por serviços como o seu no Google.
+                    </p>
+                </div>
+                
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element" style="animation-delay: 0.2s;">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mais Clientes</h3>
+                    <p class="text-gray-300">
+                        Converta buscas em visitas e visitas em clientes com um perfil otimizado e atraente.
+                    </p>
+                </div>
+                
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element" style="animation-delay: 0.4s;">
+                        <i class="fas fa-star text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Melhor Reputação</h3>
+                    <p class="text-gray-300">
+                        Gerencie avaliações e construa uma imagem positiva que inspire confiança nos clientes.
+                    </p>
+                </div>
+                
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element" style="animation-delay: 0.6s;">
+                        <i class="fas fa-robot text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Automatização Inteligente</h3>
+                    <p class="text-gray-300">
+                        Sistemas de IA que trabalham 24/7 para captar leads, responder dúvidas e fidelizar clientes.
+                    </p>
+                </div>
+                
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element" style="animation-delay: 0.8s;">
+                        <i class="fas fa-chart-pie text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Dados e Insights</h3>
+                    <p class="text-gray-300">
+                        Tenha acesso a relatórios detalhados sobre o comportamento dos clientes e desempenho do negócio.
+                    </p>
+                </div>
+                
+                <div class="holographic-card p-8 text-center fade-in">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6 float-element" style="animation-delay: 1s;">
+                        <i class="fas fa-clock text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Economia de Tempo</h3>
+                    <p class="text-gray-300">
+                        Deixe a gestão da sua presença online conosco e foque no que realmente importa: seu negócio.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">O Que Dizem Sobre Nossos Serviços</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Resultados que transformam negócios
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="holographic-card p-8 relative fade-in">
+                    <div class="absolute -top-5 -left-5 w-12 h-12 rounded-full gradient-bg flex items-center justify-center">
+                        <i class="fas fa-quote-left text-white"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">
+                        "Depois que a Sivy otimizou meu Google Meu Negócio, minhas ligações aumentaram em 300% em apenas 2 meses. Não sabia que meu perfil estava tão mal aproveitado!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#6B8DAF] mr-4"></div>
+                        <div>
+                            <h4 class="font-bold">Carlos Mendes</h4>
+                            <p class="text-sm text-gray-400">Dono de Auto Center</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="holographic-card p-8 relative fade-in">
+                    <div class="absolute -top-5 -left-5 w-12 h-12 rounded-full gradient-bg flex items-center justify-center">
+                        <i class="fas fa-quote-left text-white"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">
+                        "O chatbot que desenvolveram para meu restaurante responde 80% das perguntas dos clientes, reduzindo drasticamente meu tempo no atendimento telefônico."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#6B8DAF] mr-4"></div>
+                        <div>
+                            <h4 class="font-bold">Ana Lúcia</h4>
+                            <p class="text-sm text-gray-400">Restaurante Bella Napoli</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="holographic-card p-8 relative fade-in">
+                    <div class="absolute -top-5 -left-5 w-12 h-12 rounded-full gradient-bg flex items-center justify-center">
+                        <i class="fas fa-quote-left text-white"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">
+                        "Minha clínica aparecia na 3ª página do Google. Com o trabalho da Sivy, em 6 semanas já estávamos no topo da primeira página. Resultado: agenda lotada!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#6B8DAF] mr-4"></div>
+                        <div>
+                            <h4 class="font-bold">Dr. Rafael</h4>
+                            <p class="text-sm text-gray-400">Clínica Odontológica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 bg-[#0C1626]/80">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Perguntas Frequentes</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Tire suas dúvidas sobre nossos serviços
+                </p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Quanto tempo leva para ver resultados?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Os primeiros resultados podem ser percebidos em 2-4 semanas, mas o desempenho máximo geralmente é alcançado em 3 meses, quando o Google reconhece e recompensa as otimizações realizadas.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Preciso ter conhecimento técnico para trabalhar com vocês?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não. Nossa equipe cuida de todo o processo técnico. Você só precisa fornecer informações básicas sobre seu negócio e acesso ao seu perfil do Google Meu Negócio.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Como é o acompanhamento dos resultados?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Fornecemos relatórios mensais detalhados com métricas de visualizações, cliques, chamadas, direções solicitadas e outras estatísticas relevantes. Além disso, fazemos reuniões periódicas para alinhar estratégias.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Vocês trabalham com negócios de qualquer tamanho?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, atendemos desde microempreendedores individuais até redes com múltiplas unidades. Desenvolvemos estratégias personalizadas de acordo com o porte e objetivos de cada negócio.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>E se eu já tiver um perfil no Google Meu Negócio?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Excelente! Partimos do que você já tem e otimizamos. Analisamos seu perfil atual, identificamos oportunidades de melhoria e implementamos as estratégias necessárias para maximizar seus resultados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Pronto para Transformar seu Negócio?</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Entre em contato e descubra como podemos alavancar seus resultados
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6 text-[#A9C7E6]">Informações de Contato</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Endereço</h4>
+                                <p class="text-gray-300">Brasília-DF</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-300">sivyoficial@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Telefone</h4>
+                                <a href="https://wa.me/5561981535040?text=Quero%20mudar%20a%20visibilidade%20da%20minha%20empresa!"><p class="text-gray-300">(61) 98153-5040</p></a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mr-4">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Horário de Atendimento</h4>
+                                <p class="text-gray-300">Segunda a sexta, 9h às 22h</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6 text-[#A9C7E6]">Envie uma Mensagem</h3>
+                    <form id="whatsappForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block mb-2 font-medium">Nome Completo</label>
+                            <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg form-input" placeholder="Seu nome">
+                        </div>
+    
+                        <div>
+                            <label for="email" class="block mb-2 font-medium">Email</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg form-input" placeholder="seu@email.com">
+                        </div>
+    
+                        <div>
+                            <label for="phone" class="block mb-2 font-medium">Telefone</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg form-input" placeholder="(11) 99999-9999">
+                        </div>
+    
+                        <div>
+                            <label for="message" class="block mb-2 font-medium">Mensagem</label>
+                            <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-lg form-input" placeholder="Como podemos ajudar?"></textarea>
+                        </div>
+    
+                        <button type="submit" class="w-full px-6 py-4 rounded-full gradient-bg text-white font-bold hover:opacity-90 transition fill-button">
+                        Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-[#0C1626] border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <img src="img/logo-removebg-preview.png" alt="Sivy Company" class="h-12">
+                    <p class="text-gray-400 mt-4 max-w-xs">
+                        Transformando negócios locais com inteligência artificial e otimização digital.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.instagram.com/sivy_company/" class="text-gray-400 hover:text-[#A9C7E6] transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://wa.me/5561981535040?text=Quero%20mudar%20a%20visibilidade%20da%20minha%20empresa!" class="text-gray-400 hover:text-[#A9C7E6] transition">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Sivy Company. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicializar partículas
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#6B8DAF" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#6B8DAF",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        push: { particles_nb: 4 }
+                    }
+                },
+                retina_detect: true
+            });
+        });
+
+        // Barra de progresso
+        window.onscroll = function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Animações ao rolar
+        function checkFade() {
+            var fadeElements = document.querySelectorAll('.fade-in');
+            var processSteps = document.querySelectorAll('.process-step');
+            
+            fadeElements.forEach(function(element) {
+                var position = element.getBoundingClientRect();
+                
+                // Verificando se o elemento está visível na tela
+                if(position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+            
+            processSteps.forEach(function(element) {
+                var position = element.getBoundingClientRect();
+                
+                if(position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+                
+                const icon = question.querySelector('i');
+                if (item.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+        // Toggle de tema claro/escuro
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Efeito de digitação para outros elementos
+        function typeEffect(element, speed) {
+            var text = element.innerHTML;
+            element.innerHTML = "";
+            
+            var i = 0;
+            var timer = setInterval(function() {
+                if (i < text.length) {
+                    element.append(text.charAt(i));
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+
+        // Aplicar efeito de digitação a elementos com a classe typewriter
+        document.querySelectorAll('.typewriter').forEach((element) => {
+            typeEffect(element, 100);
+        });
+        document.getElementById("whatsappForm").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        // Pega os valores do formulário
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let phone = document.getElementById("phone").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        // Verificação manual (extra segurança)
+        if(!name || !email || !phone || !message){
+        alert("Por favor, preencha todos os campos antes de enviar.");
+        return;
+        }
+
+        // Seu número do WhatsApp no formato internacional
+        let numeroWhatsApp = "5561999999999"; // troque pelo seu número
+
+        // Monta a mensagem
+        let texto = `*Novo contato do site!*%0A
+        👤 Nome: ${name}%0A
+        📧 Email: ${email}%0A
+        📱 Telefone: ${phone}%0A
+        💬 Mensagem: ${message}`;
+
+        // Cria o link
+        let url = `https://wa.me/${numeroWhatsApp}?text=${texto}`;
+
+        // Abre o WhatsApp
+        window.open(url, '_blank');
+        });
+    </script>
+</body>
+</html>
